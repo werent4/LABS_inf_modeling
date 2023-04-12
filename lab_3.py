@@ -11,6 +11,7 @@ def index_docts(documents,key = 1, docs_dict = {}):
 # Tokenize the text, search bigrams
 def bigram_search(search_bigram, index_docts):
     return_list = []
+    return_dict = {}
     for doc_key in index_docts:
         with open(f"documents/{index_docts[doc_key]}", "r") as d:
             doc = d.read()
@@ -20,11 +21,18 @@ def bigram_search(search_bigram, index_docts):
 
         if search_bigram in bigrams_2:
             return_list.insert(0, doc_key)
-    return return_list
+            return_dict[doc_key] = f"bigram {search_bigram} was found"
+        else:
+            return_list.append(doc_key)
+            return_dict[doc_key] = f"bigram {search_bigram} wasn't found"
+    return return_dict, return_list
 
+# Creating indexes for docs
 documents = os.listdir("documents")
 docs_dict = index_docts(documents)
-print(docs_dict)
+# Creating search bigramm
 search_bigram = ('Realistic','Goals')
-result = bigram_search(search_bigram, docs_dict)
-print(result)
+return_dict, return_list = bigram_search(search_bigram, docs_dict)
+# Output
+for i in return_list:
+    print("In document:", i,'-',docs_dict[i], return_dict[i])
