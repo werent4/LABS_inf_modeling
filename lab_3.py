@@ -18,10 +18,12 @@ def bigram_search(search_bigram, index_docts):
         # Create bigrams
         tokens = nltk.word_tokenize(doc)
         bigrams_2 = list(nltk.bigrams(tokens))
+        bigram_count = bigrams_2.count(search_bigram)
 
-        if search_bigram in bigrams_2:
+        if bigram_count > 0:
+            # display documents containing the bigram first
             return_list.insert(0, doc_key)
-            return_dict[doc_key] = f"bigram {search_bigram} was found"
+            return_dict[doc_key] = f"bigram {search_bigram} was found {bigram_count} times"
         else:
             return_list.append(doc_key)
             return_dict[doc_key] = f"bigram {search_bigram} wasn't found"
