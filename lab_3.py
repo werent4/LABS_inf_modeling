@@ -18,6 +18,10 @@ def bigram_search(search_bigram, index_docts):
         # Create bigrams
         tokens = nltk.word_tokenize(doc)
         bigrams_2 = list(nltk.bigrams(tokens))
+        for i in range(0, len(bigrams_2) -1 ):
+            bigrams_2[i] = list(bigrams_2[i])
+            bigrams_2[i] = " ".join(bigrams_2[i])
+
         bigram_count = bigrams_2.count(search_bigram)
 
         if bigram_count > 0:
@@ -33,7 +37,7 @@ def bigram_search(search_bigram, index_docts):
 documents = os.listdir("documents")
 docs_dict = index_docts(documents)
 # Creating search bigramm
-search_bigram = ('Realistic','Goals')
+search_bigram = ('Realistic Goals')
 return_dict, return_list = bigram_search(search_bigram, docs_dict)
 # Output
 for i in return_list:
