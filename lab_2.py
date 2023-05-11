@@ -19,9 +19,17 @@ def boolean_search(query, index_docts):
             result.append(doc_key)
     return result
 
+#
+def main():
+    documents = os.listdir("documents")
+    docs_dict = index_docts(documents)
+    print(docs_dict)
+    query1 = ["Seek"]
+    query2 = ["Realistic", "Goals"]
+    query3 = ["available", "wellbeing", "workshops"]
+    print(f"For query {query1} results found in {boolean_search(query1, docs_dict)} documents")
+    print(f"For query {query2} results found in {boolean_search(query2, docs_dict)} documents")
+    print(f"For query {query3} results found in {boolean_search(query3, docs_dict)} documents")
 
-documents = os.listdir("documents")
-docs_dict = index_docts(documents)
-print(docs_dict)
-query = ["Seek"]
-print(boolean_search(query, docs_dict))
+if __name__ == '__main__':
+    main()

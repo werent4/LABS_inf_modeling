@@ -38,6 +38,7 @@ def matrix_of_vals_to_DataFrame(matrix_of_vals, features, list_of_docs_kyes, dat
                 data[features[word_val]] = list()
                 data[features[word_val]].append(matrix_of_vals[doc_ind][word_val])
     df_tfidf = pd.DataFrame(data=data, index=list_of_docs_kyes)
+
     return df_tfidf
 
 def search(query, df_tfidf, list_of_docs_kyes):
@@ -62,19 +63,23 @@ def search(query, df_tfidf, list_of_docs_kyes):
 
     return sorted_indexes
 
-documents = os.listdir("documents")
-docs_dict, list_of_docs_kyes = index_docts(documents)
-matrix_of_vals, features = TF_IDF(docs_dict)
+def main():
+    documents = os.listdir("documents")
+    docs_dict, list_of_docs_kyes = index_docts(documents)
+    matrix_of_vals, features = TF_IDF(docs_dict)
 
 
-df_tfidf = matrix_of_vals_to_DataFrame(matrix_of_vals, features, list_of_docs_kyes)
-query2 = ["study", "effectively"]
-query3 = ["available", "wellbeing", "workshops"]
+    df_tfidf = matrix_of_vals_to_DataFrame(matrix_of_vals, features, list_of_docs_kyes)
+    query2 = ["study", "effectively"]
+    query3 = ["available", "wellbeing", "workshops"]
 
-result2 = search(query2, df_tfidf, list_of_docs_kyes)
-for ind in result2:
-    print(f"For query {query2} the suitable documets: {ind} : {docs_dict[ind]}")
+    result2 = search(query2, df_tfidf, list_of_docs_kyes)
+    for ind in result2:
+        print(f"For query {query2} the suitable documets: {ind} : {docs_dict[ind]}")
 
-result3 = search(query3, df_tfidf, list_of_docs_kyes)
-for ind in result3:
-    print(f"For query {query3} the suitable documets: {ind} : {docs_dict[ind]}")
+    result3 = search(query3, df_tfidf, list_of_docs_kyes)
+    for ind in result3:
+        print(f"For query {query3} the suitable documets: {ind} : {docs_dict[ind]}")
+
+if __name__ == '__main__':
+    main()
