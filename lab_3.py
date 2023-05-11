@@ -12,7 +12,7 @@ def index_docts(documents,key = 1, docs_dict = {}):
 def bigram_search(search_bigram, index_docts):
     return_list = []
     return_dict = {}
-    for doc_key in index_docts:
+    for doc_key in index_docts: # read all documents
         with open(f"documents/{index_docts[doc_key]}", "r") as d:
             doc = d.read()
         # Create bigrams
